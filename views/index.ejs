@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>crudapp</title>
+</head>
+<body>
+    <h1>crudapp</h1>
+    <form action="/name" method="POST">
+        <input type="text" placeholder="forename" name="forename">
+        <input type="text" placeholder="surname" name="surname">
+        <button type="submit">Submit</button>
+    </form>
+     <h2>names</h2>
+    <ul class="names">
+        <% for(var i=0; i<names.length; i++) {%>
+            <li class="name">
+                <span><%= names[i].forename %></span>
+                <span><%= names[i].surname %></span>
+            </li>
+        <% } %>
+    </ul>
+    <div>
+        <h3>update</h3>
+        <p>replace the first name</p>
+        <button id="update-button">replace</button>
+    </div>
+</body>
+</html>
