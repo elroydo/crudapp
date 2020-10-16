@@ -61,14 +61,14 @@ MongoClient.connect(connectionString, {
 
     app.delete('/countries', (req, res) => {
         countryCollection.deleteOne({
-            country: req.body.name })
-            .then(result => {
-                if (result.deleteCount === 0) {
-                    return res.json('cannot delete anymore data')
-                    messageDiv.textContent = 'can\'t'
-                }
-                res.json('Deleted.')
-            })
+            country: req.body.country 
+        })
+        .then(result => {
+            if (result.deletedCount === 0) {
+                return res.json('no more requested data to delete')
+            }
+            res.json('deleted entry')
+        })
         .catch(error => console.error(error))
     })
 })

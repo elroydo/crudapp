@@ -1,5 +1,6 @@
 const update = document.querySelector('#update-button')
 const deleteButton = document.querySelector('#delete-button')
+const messageDiv = document.querySelector('#message')
 
 update.addEventListener('click', _ => {
     fetch('/countries', {
@@ -15,6 +16,7 @@ update.addEventListener('click', _ => {
     .then(response => {
         window.location.reload(true)
     })
+    .catch(error => console.error(error))
 })
 
 deleteButton.addEventListener('click', _ => {
@@ -22,13 +24,18 @@ deleteButton.addEventListener('click', _ => {
         method: 'delete',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            country: 'korea'
+            country: 'spain'
         })
     })
     .then(res => {
         if(res.ok) return res.json()
     })
     .then(response => {
-        window.location.reload(true)
+        if(response === 'no more requested data to delete') {
+            messageDiv.textContent = 'no more requested data to delete'
+        }else{
+            window.location.reload(true)
+        }
     })
+    .catch(error => console.error(error))
 })
