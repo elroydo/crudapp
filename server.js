@@ -22,10 +22,10 @@ MongoClient.connect(connectionString, {
 .then(client => {
     console.log('Connected to Database')
     const db = client.db('test')
-    const nameCollection = db.collection('names')
+    const countryCollection = db.collection('countries')
 
-    app.post('/name', (req, res) => {
-        nameCollection.insertOne(req.body)
+    app.post('/countries', (req, res) => {
+        countryCollection.insertOne(req.body)
         .then(result => {
             res.redirect('/')
         })
@@ -33,23 +33,21 @@ MongoClient.connect(connectionString, {
     })
 
     app.get('/', (req, res) => {
-        db.collection('names').find().toArray()
+        db.collection('countries').find().toArray()
         .then(results => {
             console.log(results)
-            res.render('index.ejs', {names: results})
+            res.render('index.ejs', {countries: results})
         })
         .catch(error => console.error(error))
     })
 
-    app.put('/name', (req, res) => {
-        nameCollection.findOneAndUpdate(
-            {forename: 'bo',
-            surname: 'burnham'
+    app.put('/countries', (req, res) => {
+        countryCollection.findOneAndUpdate(
+            {country: 'england'
         },
             {
                 $set: {
-                    forename: req.body.forename,
-                    surname: req.body.surname
+                    country: req.body.country,
                 }
             },
             {upsert: false}
@@ -60,8 +58,17 @@ MongoClient.connect(connectionString, {
         })
         .catch(error => console.error(error))
     })
+
+    app.delete('/countries', (req, res) => {
+        countryCollection.deleteOne({
+            country: req.body.name })
+            .then(result => {
+                if (result.deleteCount === 0) {
+                    return res.json('cannot delete anymore data')
+                    messageDiv.textContent = 'can\'t'
+                }
+                res.json('Deleted.')
+            })
+        .catch(error => console.error(error))
+    })
 })
-
-
-
-

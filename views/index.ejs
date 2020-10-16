@@ -6,24 +6,26 @@
 </head>
 <body>
     <h1>crudapp</h1>
-    <form action="/name" method="POST">
-        <input type="text" placeholder="forename" name="forename">
-        <input type="text" placeholder="surname" name="surname">
-        <button type="submit">Submit</button>
+    <form action="/countries" method="POST">
+        <input type="text" placeholder="country" name="country">
+        <button type="submit">add</button>
     </form>
-     <h2>names</h2>
-    <ul class="names">
-        <% for(var i=0; i<names.length; i++) {%>
-            <li class="name">
-                <span><%= names[i].forename %></span>
-                <span><%= names[i].surname %></span>
+     <h2>countries</h2>
+    <ul class="countries">
+        <% for(var i=0; i<countries.length; i++) {%>
+            <li class="country">
+                <span><%= countries[i].country %></span>
             </li>
         <% } %>
     </ul>
     <div>
         <h3>update</h3>
-        <p>replace the first name</p>
         <button id="update-button">replace</button>
+    </div>
+    <div>
+        <h3>delete</h3>
+        <button id="delete-button">remove</button>
+        <div id="message"></div>
     </div>
     <script src="/main.js">
 
