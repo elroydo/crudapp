@@ -54,7 +54,7 @@ MongoClient.connect(connectionString, {
         )
         .then(result => {
             console.log(result)
-            res.json('Success')
+            res.json('success')
         })
         .catch(error => console.error(error))
     })
